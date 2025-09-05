@@ -2,6 +2,8 @@
 
 A modern web app to help you never miss an important exam notification again! Get timely reminders, updates, and all the details you need—delivered straight to your inbox without again visiting site the mail keeps coming and reminding you till  the exam date.
 
+Live link will be soon.
+
 ---
 
 ## ✨ Features
