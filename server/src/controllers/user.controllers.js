@@ -13,7 +13,6 @@ const generateAccessAndRefreshToken = async(userId) => {
       const user = await User.findById(userId)
       const accessToken = user.generateAccessToken()
       const refreshToken = user.generateRefreshToken()
-      console.log(accessToken, refreshToken);
       
       //since db is an object so adding data in object using . simple
       user.refreshToken = refreshToken
@@ -60,16 +59,12 @@ const signup = asyncHandler(async(req, res) => {
 const login = asyncHandler(async(req, res) => {
     try {
         const{email, password} = req.body
-        console.log(email, password)
         if(!email || !password) {
             throw new apiError(400, "enter email and password dont leave empty")
         }
-        console.log(email);
-        console.log(password);
          const user = await  User.findOne({
            email : email
          })
-         console.log(user);
           
         if(!user){
          throw new apiError(404, "user doesnt exist register first")
@@ -88,7 +83,6 @@ const login = asyncHandler(async(req, res) => {
       httOnly : true,
       secure: true
      }
-    console.log(res);
      return  res
      .status(200)
      .cookie("accessToken", accessToken, options)

@@ -1,9 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-const initialState = {//creating state
-    status : false,
-    jsonData : null
-}
+let initialState = {
+    status: false,
+    jsonData: null
+};
 
 try {
     const persisted = JSON.parse(localStorage.getItem('authState'));
@@ -12,26 +12,25 @@ try {
     }
 } catch {}
 
-const authSlice = createSlice(
-    {
-        name : auth,
-        initialState,
-        reducers: {
-            login : (state, action) => {
-                 state.status = true,
-                 state.jsonData = action.payload.jsonData,
-                 localStorage.setItem('authState', JSON.stringify({ status: true, data: action.payload.jsonData }));
-            }, 
-
-            logout : (state, action) => {
-                state.status = false,
-                state.jsonData = null,
-                localStorage.removeItem('authState')
-            }
+const authSlice = createSlice({
+    name: 'auth',
+    initialState,
+    reducers: {
+        login: (state, action) => {
+            state.status = true;
+            state.jsonData = action.payload.jsonData;
+            localStorage.setItem('authState', JSON.stringify({
+                status: true,
+                jsonData: action.payload.jsonData
+            }));
+        },
+        logout: (state) => {
+            state.status = false;
+            state.jsonData = null;
+            localStorage.removeItem('authState');
         }
     }
-) 
+});
 
-
-export const {login , logout} = authSlice.actions
-export  default authSlice.reducer
+export const { login, logout } = authSlice.actions;
+export default authSlice.reducer;

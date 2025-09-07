@@ -27,44 +27,47 @@ apiInstance.interceptors.request.use((config) => {
 
 const authService = {
     signup : (jsonData) => {
-        apiInstance.post('/user/singup',jsonData, {
+        return apiInstance.post('/user/signup',jsonData, {
             headers:{
                  'Content-Type': 'application/json'
             }
-        })
+        });
     },
     login : (email, password) => {
-        apiInstance.post('/user/login', jsonData, {
+        return apiInstance.post('/user/login', { email, password }, {
             headers:{
                 'Content-Type' : 'application/json'
             }
-        })
+        });
+    },
+    logout : () => {
+        return apiInstance.post('/user/logout')
     }
 }
 
 
 const exam = {
-    //creating exam function
-      createExam : (jsonData) => {
-        apiInstance.post('/exam/create-exam', jsonData, {
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-      }, 
-    //sending notification 
-       sendingNotification : () => {
-        apiInstance.post('/exam/sendUserNotifications')
-       },
+        //creating exam function
+            createExam : (jsonData) => {
+                return apiInstance.post('/exam/create-exam', jsonData, {
+                        headers: {
+                                'Content-Type': 'application/json'
+                        }
+                });
+            }, 
+        //sending notification 
+             sendingNotification : () => {
+                return apiInstance.post('/exam/sendUserNotifications');
+             },
 
-    //starting chron job
-       startChronJob : () => {
-        apiInstance.post('/exam/startNotificationJob')
-       },
-    //stopping chron job
-       stopChronJob : () => {
-        apiInstance.post('/exam/stopNotificationJob')
-       }
+        //starting chron job
+             startChronJob : () => {
+                return apiInstance.post('/exam/startNotificationJob');
+             },
+        //stopping chron job
+             stopChronJob : () => {
+                return apiInstance.post('/exam/stopNotificationJob');
+             }
 }
 
 

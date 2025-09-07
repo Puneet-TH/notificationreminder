@@ -6,9 +6,17 @@ import userRoutes from './routes/user.routes.js'
 import examRoutes from './routes/exam.routes.js'
 import cookieParser from 'cookie-parser'
 import cron from 'node-cron';
-
+import cors from 'cors'
 
 const app = express()
+
+
+app.use(cors({
+    origin: process.env.CORS_ORIGIN,
+    credentials: true
+}))
+
+
 const port = 3000
 app.use(express.json());
 app.use(cookieParser())

@@ -46,20 +46,16 @@ const sendUserNotifications = asyncHandler(async (req, res) => {
 
         // Get user with email only
         const user = await User.findById(userId).select("email");
-        console.log(user);
         if (!user) throw new apiError(404, "User not found");
 
         // Get all exams owned by the user
         const exams = await Exam.find({ owner: userId });
-        console.log(exams);
         const examNames = exams.map(exam => exam.examName);
-        console.log(examNames);
         let notifications = [];
         for (const examName of examNames) {
             const result = await searchGemini(examName);
             notifications.push({ exam: examName, details: result });
         }
-        console.log(notifications);
 
         // Setup nodemailer transporter (use the same config as in index.js)
         const transporter = nodemailer.createTransport({
@@ -91,7 +87,6 @@ const sendUserNotifications = asyncHandler(async (req, res) => {
 
 const startNotificationJob = asyncHandler(async (req, res) => {
     if (notificationJob) {
-         console.log("chron job has been implemented sucessfully");
         return res.status(400).json(new apiResponse(400, null, "Notification job already running"));
     }
     //.schedule schedules the chron job this will run at 5pm daily untill not stopped
@@ -103,7 +98,6 @@ const startNotificationJob = asyncHandler(async (req, res) => {
 
 const stopNotificationJob = asyncHandler(async (req, res) => {
     if (notificationJob) {
-        console.log("chron job stopped sucessfully")
         //.stop helps in stopping chrnjob
         notificationJob.stop();
         notificationJob = null;
